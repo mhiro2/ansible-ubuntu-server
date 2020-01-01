@@ -1,0 +1,110 @@
+---
+timezone: Asia/Tokyo
+
+ntp_server: ntp.nict.jp
+fallback_ntp_servers:
+  - ntp1.jst.mfeed.ad.jp
+  - ntp2.jst.mfeed.ad.jp
+  - ntp3.jst.mfeed.ad.jp
+
+dns_servers:
+  - 1.1.1.1
+  - 1.0.0.1
+
+sysctl_parameters:
+  - name: fs.protected_hardlinks
+    value: 1
+  - name: fs.protected_symlinks
+    value: 1
+  - name: kernel.kptr_restrict
+    value: 1
+  - name: kernel.perf_event_paranoid
+    value: 2
+  - name: kernel.randomize_va_space
+    value: 2
+  - name: net.ipv4.conf.all.accept_redirects
+    value: 0
+  - name: net.ipv4.conf.default.accept_redirects
+    value: 0
+  - name: net.ipv4.conf.all.secure_redirects
+    value: 1
+  - name: net.ipv4.conf.default.secure_redirects
+    value: 1
+  - name: net.ipv4.conf.all.accept_source_route
+    value: 0
+  - name: net.ipv4.conf.default.accept_source_route
+    value: 0
+  - name: net.ipv4.conf.all.rp_filter
+    value: 1
+  - name: net.ipv4.conf.default.rp_filter
+    value: 1
+  - name: net.ipv4.conf.all.log_martians
+    value: 1
+  - name: net.ipv4.conf.default.log_martians
+    value: 1
+  - name: net.ipv4.icmp_echo_ignore_broadcasts
+    value: 1
+  - name: net.ipv4.icmp_ignore_bogus_error_responses
+    value: 1
+  - name: net.ipv4.tcp_syncookies
+    value: 1
+  - name: net.ipv4.tcp_rfc1337
+    value: 1
+  - name: vm.swappiness
+    value: 0
+  - name: vm.overcommit_memory
+    value: 2
+
+common_packages_apt:
+  - aria2
+  - binutils
+  - build-essential
+  - bridge-utils
+  - bzip2
+  - ccze
+  - cmake
+  - cmigemo
+  - coreutils
+  - curl
+  - dkms
+  - fakeroot
+  - git
+  - htop
+  - jq
+  - lsof
+  - lv
+  - mosh
+  - mtr
+  - multitail
+  - neovim
+  - nfs-kernel-server
+  - nkf
+  - nmap
+  - parallel
+  - peco
+  - pciutils
+  - pigz
+  - pv
+  - rsync
+  - silversearcher-ag
+  - socat
+  - software-properties-common
+  - tmux
+  - tree
+  - unzip
+  - wget
+  - xsel
+  - xz-utils
+  - zfsutils-linux
+  - zsh
+  - zstd
+
+# common_packages_snap:
+
+common_packages_snap_classic:
+  - aws-cli
+  - google-cloud-sdk
+  - kubectl
+  - microk8s
+  - multipass
+  - ripgrep

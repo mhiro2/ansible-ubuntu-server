@@ -1,0 +1,4 @@
+---
+tmp_dir: /tmp
+
+force_upgrade: False

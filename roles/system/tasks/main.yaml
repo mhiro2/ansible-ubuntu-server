@@ -1,0 +1,18 @@
+---
+- block:
+    - import_tasks: timezone.yaml
+      tags: system_timezone
+
+    - import_tasks: sysctl.yaml
+      tags: system_sysctl
+
+    - import_tasks: resolved.yaml
+      tags: system_resolved
+
+    - import_tasks: chrony.yaml
+      tags: system_chrony
+
+    - import_tasks: packages.yaml
+      tags: system_packages
+
+  become: yes

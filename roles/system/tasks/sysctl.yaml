@@ -1,0 +1,7 @@
+---
+- name: Set kernel parameters
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+  with_items: "{{ sysctl_parameters | default([]) }}"

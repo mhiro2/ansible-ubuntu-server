@@ -1,0 +1,38 @@
+---
+- name: Download nvidia driver
+  get_url:
+    url: "{{ nvidia_driver_download_url }}"
+    dest: "{{ tmp_dir }}/{{ nvidia_driver_installer }}"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Disable nouveau driver
+  modprobe:
+    name: nouveau
+    state: absent
+
+- name: Blacklist the nouveau driver module
+  kernel_blacklist:
+    name: nouveau
+    state: present
+  register: blacklist_nouveau
+
+- name: Update initramfs
+  command: update-initramfs -u
+  when: blacklist_nouveau is changed
+
+- name: Install build dependencies
+  package:
+    name: "{{ nvidia_driver_build_deps }}"
+    state: present
+
+- name: Run nvidia installer
+  command: "{{ tmp_dir }}/{{ nvidia_driver_installer }} --silent --dkms"
+  args:
+    creates: /usr/bin/nvidia-installer
+
+- name: Check if nvidia driver is enabled
+  modprobe:
+    name: nvidia
+    state: present

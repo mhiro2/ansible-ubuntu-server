@@ -1,0 +1,28 @@
+---
+- name: Upgrade all packages to the latest version
+  apt:
+    upgrade: dist
+    update_cache: yes
+    autoremove: yes
+  when: force_upgrade == True
+
+- name: Add neovim repository
+  apt_repository:
+    repo: "{{ neovim_repo }}"
+    state: present
+
+- name: Install common packages using apt
+  apt:
+    name: "{{ common_packages_apt | default([]) }}"
+    state: present
+
+- name: Install common packages using snap
+  snap:
+    name: "{{ common_packages_snap | default([]) }}"
+    state: present
+
+- name: Install common packages using snap with option '--classic'
+  snap:
+    name: "{{ common_packages_snap_classic | default([]) }}"
+    classic: yes
+    state: present

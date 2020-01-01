@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+
+[Resolve]
+DNS={%- for server in dns_servers%}{{ server }}{% if not loop.last %} {% endif %}{%- endfor %}

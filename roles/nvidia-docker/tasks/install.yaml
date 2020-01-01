@@ -1,0 +1,21 @@
+---
+- name: Import gpg key for nvidia-docker repository
+  apt_key:
+    url: "{{ nvidia_docker_apt_key }}"
+    state: present
+
+- name: Add nvidia-docker repository
+  get_url:
+    url: "{{ nvidia_docker_repo.download_url }}"
+    dest: "{{ nvidia_docker_repo.file }}"
+
+- name: Update apt package index
+  apt:
+    update_cache: yes
+  changed_when: no
+
+- name: Install nvidia-docker
+  package:
+    name: "{{ nvidia_docker_package_name }}"
+    state: present
+  notify: restart docker

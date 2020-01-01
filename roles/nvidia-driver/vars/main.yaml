@@ -1,0 +1,9 @@
+---
+nvidia_driver_installer: "NVIDIA-Linux-x86_64-{{ nvidia_driver_version }}.run"
+nvidia_driver_download_url: "http://us.download.nvidia.com/XFree86/Linux-x86_64/{{ nvidia_driver_version }}/{{ nvidia_driver_installer }}"
+
+nvidia_driver_build_deps:
+  - dkms
+  - gcc
+  - make
+  - "linux-headers-{{ ansible_kernel }}"

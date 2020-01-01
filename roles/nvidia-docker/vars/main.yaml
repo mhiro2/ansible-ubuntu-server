@@ -1,0 +1,8 @@
+---
+nvidia_docker_package_name: nvidia-container-toolkit
+
+nvidia_docker_apt_key: https://nvidia.github.io/nvidia-docker/gpgkey
+
+nvidia_docker_repo:
+  download_url: https://nvidia.github.io/nvidia-docker/ubuntu18.04/nvidia-docker.list
+  file: /etc/apt/sources.list.d/nvidia-docker.list

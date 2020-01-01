@@ -1,0 +1,79 @@
+---
+- name: Install prerequisites for Docker CE
+  apt:
+    name: "{{ docker_ce.deps }}"
+    state: present
+
+- name: Import gpg key for Docker repository
+  apt_key:
+    url: "{{ docker_ce.apt_key }}"
+    state: present
+
+- name: Add docker official repository
+  apt_repository:
+    repo: "deb [arch={{ (ansible_architecture == 'x86_64')|ternary('amd64', ansible_architecture) }}] {{ docker_ce.repo }} {{ ansible_distribution_release }} stable"
+    state: present
+
+- name: Update apt package index
+  apt:
+    update_cache: yes
+  changed_when: no
+
+- name: Install docker-ce
+  package:
+    name: "{{ docker_ce.packages }}"
+    state: present
+
+- name: Add docker group
+  group:
+    name: docker
+    state: present
+
+- name: Add user to docker group
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: docker
+    append: yes
+
+- name: Enable overlay module
+  modprobe:
+    name: overlay
+    state: present
+  when: docker_storage_driver in ('overlay', 'overlay2')
+
+- name: Enable br_netfilter module
+  modprobe:
+    name: br_netfilter
+    state: present
+
+- name: Enable forwarding and filtering
+  sysctl:
+    name: "{{ item }}"
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: yes
+  with_items:
+    - net.bridge.bridge-nf-call-arptables
+    - net.bridge.bridge-nf-call-iptables
+    - net.bridge.bridge-nf-call-ip6tables
+    - net.ipv4.ip_forward
+
+- name: Ensure config directory exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - /etc/docker
+
+- name: Add Docker daemon configuration file
+  template:
+    src: etc/docker/daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart docker

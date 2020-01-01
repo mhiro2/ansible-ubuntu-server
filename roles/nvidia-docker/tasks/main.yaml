@@ -1,0 +1,4 @@
+---
+- import_tasks: install.yaml
+  tags: nvidia-docker_install
+  become: yes

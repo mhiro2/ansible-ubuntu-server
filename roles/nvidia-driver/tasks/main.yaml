@@ -1,0 +1,19 @@
+---
+- name: Check if nvidia driver is already installed
+  command: nvidia-smi -i 0 --query-gpu=driver_version --format=csv,noheader
+  register: nvidia_driver_installed_version
+  ignore_errors: yes
+  changed_when: no
+
+- block:
+    - import_tasks: uninstall.yaml
+      when: nvidia_driver_installed_version is not failed
+      tags: nvidia-driver_uninstall
+
+    - import_tasks: install.yaml
+      tags: nvidia-driver_install
+
+  when:
+    (nvidia_driver_installed_version is failed) or
+    (nvidia_driver_installed_version.stdout != nvidia_driver_version)
+  become: yes

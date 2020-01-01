@@ -1,0 +1,14 @@
+---
+- name: restart chrony
+  systemd:
+    name: chrony.service
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: restart systemd-resolved
+  systemd:
+    name: systemd-resolved.service
+    state: restarted
+    enabled: yes
+  become: yes

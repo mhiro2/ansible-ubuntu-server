@@ -1,0 +1,14 @@
+---
+docker_ce:
+  apt_key: https://download.docker.com/linux/ubuntu/gpg
+  repo: https://download.docker.com/linux/ubuntu
+  deps:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg-agent
+    - software-properties-common
+  packages:
+    - containerd.io
+    - docker-ce
+    - docker-ce-cli
