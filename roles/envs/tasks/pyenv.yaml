@@ -1,0 +1,30 @@
+---
+- name: Check if anyenv is executable
+  stat:
+    path: "{{ anyenv.install_dir }}/bin/anyenv"
+  register: anyenv_bin_stat
+
+- name: Assert anyenv is installed
+  assert:
+    that: anyenv_bin_stat.stat.exists
+    msg: 'ERROR: anyenv is not installed.'
+
+- name: Install prerequisites for pyenv
+  apt:
+    name: "{{ pyenv_deps }}"
+    state: present
+    install_recommends: no
+  become: yes
+
+- name: Install pyenv
+  shell: bash -lc "anyenv install pyenv"
+  args:
+    creates: "{{ pyenv.install_dir }}"
+  environment:
+    PATH: "{{ anyenv.install_dir }}/bin:{{ ansible_env.PATH }}"
+
+- name: Install pyenv plugins
+  git:
+    repo: "{{ item.git_repo }}"
+    dest: "{{ pyenv.install_dir }}/plugins/{{ item.name }}"
+  with_items: "{{ pyenv.plugins | default([]) }}"

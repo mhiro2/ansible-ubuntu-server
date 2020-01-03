@@ -1,0 +1,16 @@
+---
+anyenv:
+  git_repo: https://github.com/anyenv/anyenv
+  install_dir: "{{ ansible_env.HOME }}/.anyenv"
+  definition_root: "{{ ansible_env.HOME }}/.config/anyenv"
+  plugins:
+    - name: anyenv-git
+      git_repo: https://github.com/znz/anyenv-git.git
+    - name: anyenv-update
+      git_repo: https://github.com/znz/anyenv-update.git
+
+pyenv:
+  install_dir: "{{ anyenv.install_dir }}/envs/pyenv"
+  plugins:
+    - name: pyenv-virtualenv
+      git_repo: https://github.com/yyuu/pyenv-virtualenv.git

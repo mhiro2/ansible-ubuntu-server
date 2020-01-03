@@ -2,6 +2,11 @@
 - name: Setup common tasks for all hosts
   hosts: ubuntu_servers
   roles:
-    - {role: system, tags: [system]}
-    - {role: nvidia-driver, tags: [nvidia-driver]}
-    - {role: nvidia-docker, tags: [nvidia-docker]}
+    - role: system
+      tags: [system]
+    - role: envs
+      tags: [envs]
+    - role: nvidia-driver
+      tags: [nvidia-driver]
+    - role: nvidia-docker
+      tags: [nvidia-docker]
