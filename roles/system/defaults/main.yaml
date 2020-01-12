@@ -91,6 +91,7 @@ common_packages_apt:
   - software-properties-common
   - tmux
   - tree
+  - unar
   - unzip
   - wget
   - xsel
