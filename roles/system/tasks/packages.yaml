@@ -26,3 +26,12 @@
     name: "{{ common_packages_snap_classic | default([]) }}"
     classic: yes
     state: present
+
+- name: Create symlink diff-highlight
+  file:
+    src: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+    dest: /usr/local/bin/diff-highlight
+    owner: root
+    group: root
+    mode: 0755
+    state: link
