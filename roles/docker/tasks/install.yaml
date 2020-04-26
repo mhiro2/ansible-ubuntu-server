@@ -9,9 +9,10 @@
     url: "{{ docker_ce.apt_key }}"
     state: present
 
+# FIXME: focal repository is not released now
 - name: Add docker official repository
   apt_repository:
-    repo: "deb [arch={{ (ansible_architecture == 'x86_64')|ternary('amd64', ansible_architecture) }}] {{ docker_ce.repo }} {{ ansible_distribution_release }} stable"
+    repo: "deb [arch=amd64] {{ docker_ce.repo }} bionic stable"
     state: present
 
 - name: Update apt package index
