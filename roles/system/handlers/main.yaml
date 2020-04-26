@@ -1,7 +1,7 @@
 ---
-- name: restart chrony
+- name: restart systemd-timesyncd
   systemd:
-    name: chrony.service
+    name: systemd-timesyncd.service
     state: restarted
     enabled: yes
   become: yes

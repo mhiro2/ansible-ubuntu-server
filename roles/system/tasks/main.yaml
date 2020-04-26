@@ -9,8 +9,8 @@
     - import_tasks: resolved.yaml
       tags: system_resolved
 
-    - import_tasks: chrony.yaml
-      tags: system_chrony
+    - import_tasks: timesyncd.yaml
+      tags: system_timesyncd
 
     - import_tasks: packages.yaml
       tags: system_packages

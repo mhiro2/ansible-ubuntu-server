@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+[Time]
+NTP={{ ntp_server }}
+FallbackNTP={% for server in fallback_ntp_servers %}{{ server }}{% if not loop.last %} {% endif %}{% endfor %}
+
+#RootDistanceMaxSec=5
+#PollIntervalMinSec=32
+#PollIntervalMaxSec=2048
