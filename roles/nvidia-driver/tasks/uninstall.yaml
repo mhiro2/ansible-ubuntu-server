@@ -1,3 +1,12 @@
 ---
+- name: Check if microk8s is executable
+  stat:
+    path: /snap/bin/microk8s
+  register: microk8s_bin_stat
+
+- name: Stop microk8s
+  command: /snap/bin/microk8s.stop
+  when: microk8s_bin_stat.stat.exists
+
 - name: Uninstall current driver
   command: nvidia-installer --uninstall --silent
