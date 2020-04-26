@@ -49,7 +49,7 @@
 - name: Enable forwarding and filtering
   sysctl:
     name: "{{ item }}"
-    value: 1
+    value: '1'
     sysctl_set: yes
     state: present
     reload: yes
