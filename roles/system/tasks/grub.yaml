@@ -1,0 +1,7 @@
+---
+- name: Disable CPU exploit mitigations
+  lineinfile:
+    path: /etc/default/grub
+    regexp: "^GRUB_CMDLINE_LINUX_DEFAULT"
+    line: 'GRUB_CMDLINE_LINUX_DEFAULT="mitigations=off"'
+  notify: update grub

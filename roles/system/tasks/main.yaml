@@ -3,6 +3,9 @@
     - import_tasks: timezone.yaml
       tags: system_timezone
 
+    - import_tasks: grub.yaml
+      tags: system_grub
+
     - import_tasks: sysctl.yaml
       tags: system_sysctl
 

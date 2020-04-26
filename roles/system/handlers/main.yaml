@@ -12,3 +12,6 @@
     state: restarted
     enabled: yes
   become: yes
+
+- name: update grub
+  command: update-grub
