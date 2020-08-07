@@ -1,2 +1,6 @@
 ---
 neovim_repo: ppa:neovim-ppa/stable
+
+hashicorp:
+  repo: https://apt.releases.hashicorp.com
+  apt_key: https://apt.releases.hashicorp.com/gpg
